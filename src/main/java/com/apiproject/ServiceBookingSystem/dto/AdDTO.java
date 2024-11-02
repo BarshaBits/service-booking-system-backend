@@ -20,4 +20,6 @@ public class AdDTO {
     private Long userId;
 
     private String companyName;
+
+
 }

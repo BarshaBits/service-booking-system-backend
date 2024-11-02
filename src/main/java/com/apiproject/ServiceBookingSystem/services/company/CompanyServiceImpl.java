@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Optional;
 
 @Service
@@ -37,4 +39,22 @@ public class CompanyServiceImpl implements CompanyService{
         }
         return false;
     }
+
+    public List<AdDTO> getAllAds(long userId) {
+        return adRepository.findAllByUserId(userId)
+                .stream()
+                .map(Ad::getAdDTO)
+                .collect(Collectors.toList());
+    }
+
+    public AdDTO getAdById(long adId)
+    {
+        Optional<Ad> optionalAd = adRepository.findById(adId);
+        if(optionalAd.isPresent())
+        {
+            return optionalAd.get().getAdDTO();
+        }
+        return null;
+    }
+
 }
